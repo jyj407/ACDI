@@ -54,8 +54,8 @@ private:
 
 public:
     DominatorTree(int size) : n(size), graph(size), reverseGraph(size), bucket(size),
-                              semi(size, 0), idom(size, -1), vertex(size, -1),
-                              label(size, -1), ancestor(size, -1), parent(size, -1) {}
+                              semi(size + 1, 0), idom(size + 1, -1), vertex(size + 1, -1),
+                              label(size + 1, -1), ancestor(size + 1, -1), parent(size + 1, -1) {}
 
     void addEdge(int u, int v) {
         if (u >= n || v >= n || u < 0 || v < 0) {
@@ -68,7 +68,7 @@ public:
         int index = 0;
         dfs(root, index);
 
-        for (int i = n - 1; i > 0; --i) { // 从最后一个节点开始计算
+        for (int i = n; i > 0; --i) { // 从最后一个节点开始计算
             int w = vertex[i];
             for (int v : reverseGraph[w]) {
                 int u = eval(v);
